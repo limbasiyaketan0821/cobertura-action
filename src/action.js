@@ -332,7 +332,7 @@ async function pullRequestInfo(payload = {}) {
 module.exports = {
   action,
   markdownReport,
-  addComment,
+  //addComment,
   addCheck,
   listChangedFiles,
 };

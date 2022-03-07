@@ -18379,12 +18379,12 @@ function markdownReport(reports, commit, options) {
       [
         "**All files**",
         `\`${total}%\``,
-        // showLine ? `\`${linesTotal}%\`` : undefined,
-        // showBranch ? `\`${branchTotal}%\`` : undefined,
-        // status(total),
-        // showMissing ? " " : undefined,
+        showLine ? `\`${linesTotal}%\`` : undefined,
+        showBranch ? `\`${branchTotal}%\`` : undefined,
+        status(total),
+        showMissing ? " " : undefined,
       ],
-       ...packages,
+      //  ...files,
     ]
       .map((row) => {
         return `| ${row.filter(Boolean).join(" | ")} |`;

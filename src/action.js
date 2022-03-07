@@ -207,7 +207,7 @@ function markdownReport(reports, commit, options) {
     const branchTotal = Math.floor(report.branch);
     const table = [
       [
-        "File",
+        "Package",
         "Coverage",
         showLine ? "Lines" : undefined,
         showBranch ? "Branches" : undefined,
@@ -230,7 +230,6 @@ function markdownReport(reports, commit, options) {
         status(total),
         showMissing ? " " : undefined,
       ],
-      ...files,
     ]
       .map((row) => {
         return `| ${row.filter(Boolean).join(" | ")} |`;

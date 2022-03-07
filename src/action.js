@@ -32,6 +32,9 @@ async function action(payload) {
   const showClassNames = JSON.parse(
     core.getInput("show_class_names", { required: true })
   );
+  const showPackageNames = JSON.parse(
+    core.getInput("show_package_names", { required: true })
+  );
   const showMissing = JSON.parse(
     core.getInput("show_missing", { required: true })
   );
@@ -61,6 +64,7 @@ async function action(payload) {
     showLine,
     showBranch,
     showClassNames,
+    showPackageNames,
     showMissing,
     showMissingMaxLength,
     linkMissingLines,
@@ -154,6 +158,7 @@ function markdownReport(reports, commit, options) {
     showLine = false,
     showBranch = false,
     showClassNames = false,
+    showPackageNames = false,
     showMissing = false,
     showMissingMaxLength = -1,
     linkMissingLines = false,
@@ -168,28 +173,28 @@ function markdownReport(reports, commit, options) {
   let output = "";
   for (const report of reports) {
     const folder = reports.length <= 1 ? "" : ` ${report.folder}`;
-    for (const file of report.files.filter(
-      (file) => filteredFiles == null || filteredFiles.includes(file.filename)
-    )) {
-      const fileTotal = Math.floor(file.total);
-      const fileLines = Math.floor(file.line);
-      const fileBranch = Math.floor(file.branch);
-      files.push([
-        escapeMarkdown(showClassNames ? file.name : file.filename),
-        `\`${fileTotal}%\``,
-        showLine ? `\`${fileLines}%\`` : undefined,
-        showBranch ? `\`${fileBranch}%\`` : undefined,
-        status(fileTotal),
-        showMissing && file.missing
-          ? formatMissingLines(
-              formatFileUrl(linkMissingLinesSourceDir, file.filename, commit),
-              file.missing,
-              showMissingMaxLength,
-              linkMissingLines
-            )
-          : undefined,
-      ]);
-    }
+    // for (const file of report.files.filter(
+    //   (file) => filteredFiles == null || filteredFiles.includes(file.filename)
+    // )) {
+    //   const fileTotal = Math.floor(file.total);
+    //   const fileLines = Math.floor(file.line);
+    //   const fileBranch = Math.floor(file.branch);
+    //   files.push([
+    //     escapeMarkdown(showClassNames ? file.name : file.filename),
+    //     `\`${fileTotal}%\``,
+    //     showLine ? `\`${fileLines}%\`` : undefined,
+    //     showBranch ? `\`${fileBranch}%\`` : undefined,
+    //     status(fileTotal),
+    //     showMissing && file.missing
+    //       ? formatMissingLines(
+    //           formatFileUrl(linkMissingLinesSourceDir, file.filename, commit),
+    //           file.missing,
+    //           showMissingMaxLength,
+    //           linkMissingLines
+    //         )
+    //       : undefined,
+    //   ]);
+    // }
 
     // Construct table
     /*
@@ -225,11 +230,12 @@ function markdownReport(reports, commit, options) {
       [
         "**All files**",
         `\`${total}%\``,
-        showLine ? `\`${linesTotal}%\`` : undefined,
-        showBranch ? `\`${branchTotal}%\`` : undefined,
-        status(total),
-        showMissing ? " " : undefined,
+        // showLine ? `\`${linesTotal}%\`` : undefined,
+        // showBranch ? `\`${branchTotal}%\`` : undefined,
+        // status(total),
+        // showMissing ? " " : undefined,
       ],
+      // ...files,
     ]
       .map((row) => {
         return `| ${row.filter(Boolean).join(" | ")} |`;

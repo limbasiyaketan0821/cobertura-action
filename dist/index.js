@@ -18312,6 +18312,7 @@ function markdownReport(reports, commit, options) {
     showLine = false,
     showBranch = false,
     showClassNames = false,
+    showPackageNames = false,
     showMissing = false,
     showMissingMaxLength = -1,
     linkMissingLines = false,
@@ -18326,28 +18327,28 @@ function markdownReport(reports, commit, options) {
   let output = "";
   for (const report of reports) {
     const folder = reports.length <= 1 ? "" : ` ${report.folder}`;
-    for (const file of report.files.filter(
-      (file) => filteredFiles == null || filteredFiles.includes(file.filename)
-    )) {
-      const fileTotal = Math.floor(file.total);
-      const fileLines = Math.floor(file.line);
-      const fileBranch = Math.floor(file.branch);
-      files.push([
-        escapeMarkdown(showClassNames ? file.name : file.filename),
-        `\`${fileTotal}%\``,
-        showLine ? `\`${fileLines}%\`` : undefined,
-        showBranch ? `\`${fileBranch}%\`` : undefined,
-        status(fileTotal),
-        showMissing && file.missing
-          ? formatMissingLines(
-              formatFileUrl(linkMissingLinesSourceDir, file.filename, commit),
-              file.missing,
-              showMissingMaxLength,
-              linkMissingLines
-            )
-          : undefined,
-      ]);
-    }
+    // for (const file of report.files.filter(
+    //   (file) => filteredFiles == null || filteredFiles.includes(file.filename)
+    // )) {
+    //   const fileTotal = Math.floor(file.total);
+    //   const fileLines = Math.floor(file.line);
+    //   const fileBranch = Math.floor(file.branch);
+    //   files.push([
+    //     escapeMarkdown(showClassNames ? file.name : file.filename),
+    //     `\`${fileTotal}%\``,
+    //     showLine ? `\`${fileLines}%\`` : undefined,
+    //     showBranch ? `\`${fileBranch}%\`` : undefined,
+    //     status(fileTotal),
+    //     showMissing && file.missing
+    //       ? formatMissingLines(
+    //           formatFileUrl(linkMissingLinesSourceDir, file.filename, commit),
+    //           file.missing,
+    //           showMissingMaxLength,
+    //           linkMissingLines
+    //         )
+    //       : undefined,
+    //   ]);
+    // }
 
     // Construct table
     /*
@@ -18383,10 +18384,10 @@ function markdownReport(reports, commit, options) {
       [
         "**All files**",
         `\`${total}%\``,
-        showLine ? `\`${linesTotal}%\`` : undefined,
-        showBranch ? `\`${branchTotal}%\`` : undefined,
-        status(total),
-        showMissing ? " " : undefined,
+        // showLine ? `\`${linesTotal}%\`` : undefined,
+        // showBranch ? `\`${branchTotal}%\`` : undefined,
+        // status(total),
+        // showMissing ? " " : undefined,
       ],
       // ...files,
     ]
@@ -18501,7 +18502,6 @@ module.exports = {
 /***/ 4129:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-/* eslint-disable prettier/prettier */
 const fs = __nccwpck_require__(5747).promises;
 const xml2js = __nccwpck_require__(6189);
 const util = __nccwpck_require__(1669);

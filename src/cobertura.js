@@ -32,7 +32,7 @@ async function readCoverageFromFile(path, options) {
     .filter((file) => options.skipCovered === false || file.total < 100);
   return {
     ...calculateRates(coverage),
-    files,
+    packages,
   };
 }
 

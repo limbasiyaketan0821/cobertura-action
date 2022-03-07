@@ -32,9 +32,6 @@ async function action(payload) {
   const showClassNames = JSON.parse(
     core.getInput("show_class_names", { required: true })
   );
-  const showPackageNames = JSON.parse(
-    core.getInput("show_package_names", { required: true })
-  );
   const showMissing = JSON.parse(
     core.getInput("show_missing", { required: true })
   );
@@ -64,7 +61,6 @@ async function action(payload) {
     showLine,
     showBranch,
     showClassNames,
-    showPackageNames,
     showMissing,
     showMissingMaxLength,
     linkMissingLines,
@@ -158,7 +154,6 @@ function markdownReport(reports, commit, options) {
     showLine = false,
     showBranch = false,
     showClassNames = false,
-    showPackageNames = false,
     showMissing = false,
     showMissingMaxLength = -1,
     linkMissingLines = false,
@@ -235,7 +230,7 @@ function markdownReport(reports, commit, options) {
         // status(total),
         // showMissing ? " " : undefined,
       ],
-      // ...files,
+       ...packages,
     ]
       .map((row) => {
         return `| ${row.filter(Boolean).join(" | ")} |`;

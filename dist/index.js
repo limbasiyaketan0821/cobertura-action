@@ -18186,6 +18186,9 @@ async function action(payload) {
   const showClassNames = JSON.parse(
     core.getInput("show_class_names", { required: true })
   );
+  const showPackageNames = JSON.parse(
+    core.getInput("show_package_names", { required: true })
+  );
   const showMissing = JSON.parse(
     core.getInput("show_missing", { required: true })
   );
@@ -18215,6 +18218,7 @@ async function action(payload) {
     showLine,
     showBranch,
     showClassNames,
+    showPackageNames,
     showMissing,
     showMissingMaxLength,
     linkMissingLines,
@@ -18361,7 +18365,7 @@ function markdownReport(reports, commit, options) {
     const branchTotal = Math.floor(report.branch);
     const table = [
       [
-        "File",
+        "Package",
         "Coverage",
         showLine ? "Lines" : undefined,
         showBranch ? "Branches" : undefined,
@@ -18384,7 +18388,7 @@ function markdownReport(reports, commit, options) {
         status(total),
         showMissing ? " " : undefined,
       ],
-      ...files,
+      // ...files,
     ]
       .map((row) => {
         return `| ${row.filter(Boolean).join(" | ")} |`;
@@ -18485,8 +18489,8 @@ async function pullRequestInfo(payload = {}) {
 
 module.exports = {
   action,
-  markdownReport,
-  addComment,
+  //markdownReport,
+  //addComment,
   addCheck,
   listChangedFiles,
 };
@@ -18497,6 +18501,7 @@ module.exports = {
 /***/ 4129:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+/* eslint-disable prettier/prettier */
 const fs = __nccwpck_require__(5747).promises;
 const xml2js = __nccwpck_require__(6189);
 const util = __nccwpck_require__(1669);
@@ -18531,7 +18536,7 @@ async function readCoverageFromFile(path, options) {
     .filter((file) => options.skipCovered === false || file.total < 100);
   return {
     ...calculateRates(coverage),
-    files,
+    packages,
   };
 }
 

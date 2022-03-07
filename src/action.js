@@ -331,7 +331,7 @@ async function pullRequestInfo(payload = {}) {
 
 module.exports = {
   action,
-  markdownReport,
+  //markdownReport,
   //addComment,
   addCheck,
   listChangedFiles,
